@@ -21,6 +21,8 @@ const state = {
   chunks: [],
 };
 
+const isStaticSite = Boolean(window.STATIC_CARDS);
+
 const els = {
   seriesList: document.querySelector("#seriesList"),
   shuffleMode: document.querySelector("#shuffleMode"),
@@ -428,6 +430,12 @@ function resetUnscramble() {
 }
 
 async function loadRecordings() {
+  if (isStaticSite) {
+    els.recordingStatus.textContent = "Recordings are available in the local server version.";
+    els.recordButton.disabled = true;
+    els.stopRecordButton.disabled = true;
+    return;
+  }
   const response = await fetch("/api/recordings");
   const data = await response.json();
   els.recordingList.innerHTML = "";
@@ -468,6 +476,10 @@ async function loadRecordings() {
 }
 
 async function startRecording() {
+  if (isStaticSite) {
+    els.recordingStatus.textContent = "Recordings are available in the local server version.";
+    return;
+  }
   if (!navigator.mediaDevices?.getUserMedia) {
     els.recordingStatus.textContent = "Recording is not available in this browser.";
     return;
@@ -515,9 +527,13 @@ function render() {
 }
 
 async function init() {
-  const response = await fetch("/api/cards");
-  const data = await response.json();
-  state.cards = data.cards;
+  if (isStaticSite) {
+    state.cards = window.STATIC_CARDS;
+  } else {
+    const response = await fetch("/api/cards");
+    const data = await response.json();
+    state.cards = data.cards;
+  }
   focusCurrentUnitOnly();
   render();
   loadRecordings();

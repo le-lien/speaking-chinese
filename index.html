@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Speaking Chinese</title>
+    <link rel="stylesheet" href="public/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">中</div>
+          <div>
+            <h1>Speaking Chinese</h1>
+          </div>
+        </div>
+        <button id="shuffleMode" class="study-scope-switch" type="button" aria-pressed="false">
+          <span class="scope-option scope-unit">Unit-wise</span>
+          <span class="scope-option scope-shuffle">Shuffle</span>
+          <span class="scope-thumb" aria-hidden="true"></span>
+        </button>
+        <div id="seriesList" class="series-list" aria-label="Series and units"></div>
+      </aside>
+
+      <main class="study-column">
+        <div class="topbar">
+          <div class="mode-tabs" role="tablist" aria-label="Study mode">
+            <button id="flashcardMode" class="mode-tab active" type="button">Flashcards</button>
+            <button id="exerciseMode" class="mode-tab" type="button">Exercise</button>
+          </div>
+          <div class="sentence-nav">
+            <button id="previousCard" class="icon-button" type="button" title="Previous sentence">‹</button>
+            <span id="shuffleBadge" class="shuffle-badge" hidden>Shuffle</span>
+            <span id="positionText"></span>
+            <button id="nextCard" class="icon-button" type="button" title="Next sentence">›</button>
+          </div>
+        </div>
+
+        <section id="flashcardPanel" class="flashcard-panel">
+          <button id="flashcard" class="flashcard" type="button" aria-label="Play Chinese audio">
+            <span id="cardLanguage" class="card-language"></span>
+            <span id="cardText" class="card-text"></span>
+          </button>
+          <div class="card-actions">
+            <button id="flipCard" class="primary-button" type="button">Flip</button>
+          </div>
+        </section>
+
+        <section id="exercisePanel" class="exercise-panel" hidden>
+          <div class="exercise-tabs" role="tablist" aria-label="Exercise type">
+            <button id="matchingTab" class="exercise-tab active" type="button">Matching</button>
+            <button id="unscrambleTab" class="exercise-tab" type="button">Listen & Unscramble</button>
+          </div>
+
+          <div id="matchingExercise" class="exercise-surface">
+            <div class="match-grid">
+              <div>
+                <h2>Chinese</h2>
+                <div id="matchChinese" class="match-list"></div>
+              </div>
+              <div>
+                <h2>English</h2>
+                <div id="matchEnglish" class="match-list"></div>
+              </div>
+            </div>
+            <div id="matchFeedback" class="feedback"></div>
+          </div>
+
+          <div id="unscrambleExercise" class="exercise-surface" hidden>
+            <div class="unscramble-header">
+              <button id="playUnscramble" class="primary-button" type="button">Play Audio</button>
+              <button id="resetUnscramble" class="secondary-button" type="button">Reset</button>
+            </div>
+            <div id="answerSlots" class="answer-slots"></div>
+            <div id="characterBank" class="character-bank"></div>
+            <div id="unscrambleFeedback" class="feedback"></div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="audio-column">
+        <section class="panel">
+          <h2>Audio</h2>
+          <audio id="player" controls preload="auto"></audio>
+          <label class="field">
+            <span>Speed</span>
+            <select id="speedSelect">
+              <option value="0.5">0.5x</option>
+              <option value="0.75" selected>0.75x</option>
+              <option value="1">1x</option>
+              <option value="1.25">1.25x</option>
+              <option value="1.5">1.5x</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="panel">
+          <h2>Recordings</h2>
+          <div class="recording-controls">
+            <button id="recordButton" class="primary-button" type="button">Record</button>
+            <button id="stopRecordButton" class="secondary-button" type="button" disabled>Stop</button>
+          </div>
+          <div id="recordingStatus" class="status-text"></div>
+          <div id="recordingList" class="recording-list"></div>
+        </section>
+      </aside>
+    </div>
+
+    <script src="cards-data.js"></script>
+    <script src="public/app.js"></script>
+  </body>
+</html>
